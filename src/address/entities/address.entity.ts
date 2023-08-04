@@ -8,7 +8,7 @@ import {
 
 
 @Entity({ name: 'address'})
-export class addressEntity {
+export class AddressEntity {
     @PrimaryGeneratedColumn('rowid')
     id: number;
 
