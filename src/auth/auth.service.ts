@@ -6,7 +6,7 @@ import { compare } from 'bcrypt';
 import { ReturnLogin } from './dtos/returnLogin.dto';
 import { JwtService } from '@nestjs/jwt';
 import { ReturnUserDto } from 'src/user/dtos/returnUser.dto';
-import { LoginPayload } from 'src/address/dtos/loginPayload.dto';
+import { LoginPayload } from 'src/auth/dtos/loginPayLoad.dto';
 
 @Injectable()
 export class AuthService {
