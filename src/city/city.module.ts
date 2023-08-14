@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { CacheModule } from 'src/cache/cache.module';
+import { CacheModule } from '../cache/cache.module';
 import { CityController } from './city.controller';
 import { CityService } from './city.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
