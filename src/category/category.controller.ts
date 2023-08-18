@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from '@nestjs/common';
-import { Roles } from 'src/decorators/roles.decorator';
+import { Roles } from '../decorators/roles.decorator';
 import { UserType } from 'src/user/enum/user-type.enum';
 import { CategoryService } from './category.service';
 import { ReturnCategory } from './dtos/return-category.dto';
