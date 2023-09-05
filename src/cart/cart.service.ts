@@ -85,7 +85,7 @@ export class CartService {
             return this.createCart(userId);
           });
   
-          await this.cartProductService.updateProductInCar(updateCartDTO, cart)
+          await this.cartProductService.updateProductInCart(updateCartDTO, cart)
       
           return cart;
       }
