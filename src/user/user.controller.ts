@@ -38,7 +38,7 @@ export class UserController {
     @Roles(UserType.Admin, UserType.User)
     @Patch()
     @UsePipes(ValidationPipe)
-    async updatPasswordUser (@Body() UpdatePasswordDTO: UpdatePasswordDTO, @UserId() userId: number): Promise<UserEntity> {
+    async updatePasswordUser (@Body() UpdatePasswordDTO: UpdatePasswordDTO, @UserId() userId: number): Promise<UserEntity> {
         return this.userService.updatePasswordUser(UpdatePasswordDTO, userId)
     }
 }

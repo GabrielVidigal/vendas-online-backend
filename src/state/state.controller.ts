@@ -7,7 +7,7 @@ export class StateController {
     constructor(private readonly stateService: StateService) {}
 
     @Get()
-    async getAllStete(): Promise<StateEntity[]>{
+    async getAllState(): Promise<StateEntity[]>{
         return this.stateService.getAllState();
     }
 }
