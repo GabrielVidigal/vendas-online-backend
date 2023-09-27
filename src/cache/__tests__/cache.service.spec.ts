@@ -8,7 +8,6 @@ describe('CacheService', () => {
   let service: CacheService;
   let cacheManager: Cache;
 
-
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -18,13 +17,13 @@ describe('CacheService', () => {
           useValue: {
             get: () => userEntityMock,
             set: () => jest.fn(),
-          }
+          },
         },
       ],
     }).compile();
 
     service = module.get<CacheService>(CacheService);
-    cacheManager = module.get(CACHE_MANAGER)
+    cacheManager = module.get(CACHE_MANAGER);
   });
 
   it('should be defined', () => {
@@ -32,9 +31,9 @@ describe('CacheService', () => {
   });
 
   it('should return data in cache', async () => {
-    const user = await service.getCache('key', () => null)
+    const user = await service.getCache('key', () => null);
 
-    expect(user).toEqual(userEntityMock)
+    expect(user).toEqual(userEntityMock);
   });
 
   it('should return data in function', async () => {

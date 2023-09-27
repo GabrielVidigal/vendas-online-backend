@@ -1,13 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CartService } from 'src/cart/cart.service';
-import { CartEntity } from 'src/cart/entities/cart.entity';
-import { OrderProductEntity } from 'src/order-product/entities/order-product.entity';
-import { OrderProductService } from 'src/order-product/order-product.service';
-import { PaymentEntity } from 'src/payment/entities/payment.entity';
-import { PaymentService } from 'src/payment/payment.service';
-import { ProductEntity } from 'src/product/entities/product.entity';
-import { ProductService } from 'src/product/product.service';
+import { CartService } from '../cart/cart.service';
+import { CartEntity } from '../cart/entities/cart.entity';
+import { OrderProductEntity } from '../order-product/entities/order-product.entity';
+import { OrderProductService } from '../order-product/order-product.service';
+import { PaymentEntity } from '../payment/entities/payment.entity';
+import { PaymentService } from '../payment/payment.service';
+import { ProductEntity } from '../product/entities/product.entity';
+import { ProductService } from '../product/product.service';
 import { Repository } from 'typeorm';
 import { CreateOrderDTO } from './dtos/create-order.dto';
 import { OrderEntity } from './entities/order.entity';
@@ -34,8 +34,7 @@ export class OrderService {
       userId,
     });
   }
-  
-    
+
   async createOrderProductUsingCart(
     cart: CartEntity,
     orderId: number,
@@ -94,9 +93,9 @@ export class OrderService {
       },
     });
 
-    if(!orders || orders.length === 0 ){
-      throw new NotFoundException('Order not found'); 
+    if (!orders || orders.length === 0) {
+      throw new NotFoundException('Order not found');
     }
-    return orders
+    return orders;
   }
 }

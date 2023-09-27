@@ -1,11 +1,11 @@
-import { UpdatePasswordDTO } from "../dtos/update-password.dto";
+import { UpdatePasswordDTO } from '../dtos/update-password.dto';
 
 export const updatePasswordMock: UpdatePasswordDTO = {
-    lastPassword: 'abc',
-    newPassword: 'fdasfas',
-}
+  lastPassword: 'abc',
+  newPassword: 'fdasfas',
+};
 
 export const updatePasswordInvalidMock: UpdatePasswordDTO = {
-    lastPassword: 'fdasfas',
-    newPassword: 'fasdfasdf'
-}
+  lastPassword: 'fdasfas',
+  newPassword: 'fasdfasdf',
+};

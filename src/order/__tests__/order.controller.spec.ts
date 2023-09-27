@@ -4,17 +4,17 @@ import { OrderService } from '../order.service';
 
 describe('OrderController', () => {
   let controller: OrderController;
-  let orderService: OrderService
+  let orderService: OrderService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
           provide: OrderService,
-          useValue:{
-            createOrder: ''
-          }
-        }
+          useValue: {
+            createOrder: '',
+          },
+        },
       ],
       controllers: [OrderController],
     }).compile();

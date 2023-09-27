@@ -1,19 +1,18 @@
-import { IsNumber, IsOptional, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateOrderDTO {
+  @IsNumber()
+  addressId?: number;
 
-    @IsNumber()
-    addressId?: number;
+  @IsOptional()
+  @IsNumber()
+  amountPayments?: number;
 
-    @IsOptional()
-    @IsNumber()
-    amountPayments?: number;
+  @IsOptional()
+  @IsString()
+  codePix?: string;
 
-    @IsOptional()
-    @IsString()
-    codePix?: string;
-
-    @IsOptional()
-    @IsString()
-    datePayment?: string;
+  @IsOptional()
+  @IsString()
+  datePayment?: string;
 }

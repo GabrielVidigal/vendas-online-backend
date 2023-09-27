@@ -6,8 +6,6 @@ import { JwtService } from '@nestjs/jwt';
 import { jwtMock } from '../__mocks__/jwt.mock';
 import { loginUserMock } from '../__mocks__/login-user.mock';
 import { ReturnUserDto } from '../../user/dtos/returnUser.dto';
-;
-
 describe('AuthService', () => {
   let service: AuthService;
   let userService: UserService;
@@ -41,18 +39,18 @@ describe('AuthService', () => {
   });
 
   it('should return user if password and email valid', async () => {
-
     const user = await service.login(loginUserMock);
 
     expect(user).toEqual({
       accessToken: jwtMock,
       user: new ReturnUserDto(userEntityMock),
-    })
+    });
   });
 
   it('should return user if password invalid and email valid', async () => {
-
-    expect(service.login({...loginUserMock, password: '4321'})).rejects.toThrowError();
+    expect(
+      service.login({ ...loginUserMock, password: '4321' }),
+    ).rejects.toThrowError();
   });
 
   it('should return user if email not exist', async () => {
@@ -66,5 +64,4 @@ describe('AuthService', () => {
 
     expect(service.login(loginUserMock)).rejects.toThrowError();
   });
-  
 });

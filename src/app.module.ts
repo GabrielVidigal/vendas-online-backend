@@ -52,9 +52,11 @@ import { OrderProductModule } from './order-product/order-product.module';
     OrderProductModule,
   ],
   controllers: [],
-  providers: [ {
-    provide: APP_GUARD,
-    useClass: RolesGuard,
-  },],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

@@ -17,7 +17,6 @@ describe('CategoryService', () => {
         {
           provide: getRepositoryToken(CategoryEntity),
           useValue: {
-
             findOne: jest.fn().mockResolvedValue(categoryMock),
             find: jest.fn().mockResolvedValue([categoryMock]),
             save: jest.fn().mockResolvedValue(categoryMock),
@@ -68,7 +67,7 @@ describe('CategoryService', () => {
   });
 
   it('should return error in exception', async () => {
-    jest.spyOn(categoryRepository, 'save').mockRejectedValue(new Error())
+    jest.spyOn(categoryRepository, 'save').mockRejectedValue(new Error());
 
     expect(service.createCategory(createCategoryMock)).rejects.toThrowError();
   });
@@ -82,7 +81,8 @@ describe('CategoryService', () => {
   it('should return error if category find by name empty', async () => {
     jest.spyOn(categoryRepository, 'findOne').mockResolvedValue(undefined);
 
-    expect(service.findCategoryByName(categoryMock.name),
+    expect(
+      service.findCategoryByName(categoryMock.name),
     ).rejects.toThrowError();
   });
 
@@ -96,6 +96,4 @@ describe('CategoryService', () => {
 
     expect(service.findCategoryById(categoryMock.id)).rejects.toThrowError();
   });
-
-
 });

@@ -29,7 +29,7 @@ export class ProductEntity {
   updatedAt: Date;
 
   @OneToMany(() => CartProductEntity, (cartProduct) => cartProduct.product)
-  cartProduct?: CartProductEntity[]
+  cartProduct?: CartProductEntity[];
 
   @ManyToOne(
     () => CategoryEntity,

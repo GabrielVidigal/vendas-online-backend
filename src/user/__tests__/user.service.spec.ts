@@ -5,8 +5,10 @@ import { UserEntity } from '../entities/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { userEntityMock } from '../__mocks__/user.mock';
 import { createUserMock } from '../__mocks__/createUser.mock';
-import { updatePasswordInvalidMock, updatePasswordMock } from '../__mocks__/update-user.mock';
-
+import {
+  updatePasswordInvalidMock,
+  updatePasswordMock,
+} from '../__mocks__/update-user.mock';
 
 describe('UserService', () => {
   let service: UserService;
@@ -14,14 +16,15 @@ describe('UserService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserService,
-      {
-        provide: getRepositoryToken(UserEntity),
-        useValue: {
-          findOne: jest.fn().mockResolvedValue(userEntityMock),
-          save: jest.fn().mockResolvedValue(userEntityMock),
-        }
-      }
+      providers: [
+        UserService,
+        {
+          provide: getRepositoryToken(UserEntity),
+          useValue: {
+            findOne: jest.fn().mockResolvedValue(userEntityMock),
+            save: jest.fn().mockResolvedValue(userEntityMock),
+          },
+        },
       ],
     }).compile();
 
@@ -38,12 +41,12 @@ describe('UserService', () => {
 
   it('should return user in findUserByEmail', async () => {
     const user = await service.findUserByEmail(userEntityMock.email);
-    
+
     expect(user).toEqual(userEntityMock);
   });
 
   it('should return error in findUserByEmail', async () => {
-    jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined)
+    jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
 
     expect(
       service.findUserByEmail(userEntityMock.email),
@@ -60,29 +63,25 @@ describe('UserService', () => {
 
   it('should return user in findUserById', async () => {
     const user = await service.findUserById(userEntityMock.id);
-    
+
     expect(user).toEqual(userEntityMock);
   });
 
   it('should return error in findUserById', async () => {
-    jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined)
+    jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
 
-    expect(
-      service.findUserById(userEntityMock.id),
-    ).rejects.toThrowError();
+    expect(service.findUserById(userEntityMock.id)).rejects.toThrowError();
   });
 
   it('should return error in findUserById (error DB)', async () => {
     jest.spyOn(userRepository, 'findOne').mockRejectedValueOnce(new Error());
 
-    expect(
-      service.findUserById(userEntityMock.id),
-    ).rejects.toThrowError();
+    expect(service.findUserById(userEntityMock.id)).rejects.toThrowError();
   });
 
   it('should return user in getUserByIdUsingRelations', async () => {
     const user = await service.getUserByIdUsingRelations(userEntityMock.id);
-    
+
     expect(user).toEqual(userEntityMock);
   });
 
@@ -95,7 +94,7 @@ describe('UserService', () => {
 
     const user = await service.createUser(createUserMock);
 
-    expect(user).toEqual(userEntityMock)
+    expect(user).toEqual(userEntityMock);
   });
 
   it('should return user in update password', async () => {
@@ -105,21 +104,19 @@ describe('UserService', () => {
     );
 
     expect(user).toEqual(userEntityMock);
-  })
+  });
 
   it('should return invalid password in error', async () => {
     expect(
-      service.updatePasswordUser(updatePasswordInvalidMock, userEntityMock.id)
-    ).rejects.toThrowError();
-  })
-
-  it('should return error in user not exist', async () => {
-    jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined)
-
-    expect(service.updatePasswordUser(updatePasswordMock, userEntityMock.id)
+      service.updatePasswordUser(updatePasswordInvalidMock, userEntityMock.id),
     ).rejects.toThrowError();
   });
 
-});
+  it('should return error in user not exist', async () => {
+    jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
 
-  
+    expect(
+      service.updatePasswordUser(updatePasswordMock, userEntityMock.id),
+    ).rejects.toThrowError();
+  });
+});
