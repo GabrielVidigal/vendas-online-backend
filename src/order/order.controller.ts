@@ -2,14 +2,14 @@ import {
   Body,
   Controller,
   Get,
-  Param,
   Post,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { CreateOrderDTO } from './dtos/create-order.dto';
-import { OrderService } from './order.service';
 import { UserId } from '../decorators/user-id.decorator';
+import { CreateOrderDTO } from './dtos/create-order.dto';
+import { OrderEntity } from './entities/order.entity';
+import { OrderService } from './order.service';
 
 @Controller('order')
 export class OrderController {
@@ -19,14 +19,13 @@ export class OrderController {
   @UsePipes(ValidationPipe)
   async createOrder(
     @Body() createOrderDTO: CreateOrderDTO,
-    @Param('cartId') cartId: number,
     @UserId() userId: number,
-  ) {
+  ): Promise<OrderEntity> {
     return this.orderService.createOrder(createOrderDTO, userId);
   }
 
   @Get()
-  async findOrdersByUserId(@UserId() userId: number) {
+  async findOrdersByUserId(@UserId() userId: number): Promise<OrderEntity[]> {
     return this.orderService.findOrdersByUserId(userId);
   }
 }
