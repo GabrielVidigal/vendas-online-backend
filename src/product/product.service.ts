@@ -82,8 +82,9 @@ export class ProductService {
   }
 
   async countProductsByCategoryId(): Promise<CountProduct[]> {
-    return this.productRepository.createQueryBuilder('product')
-      .select('product.category_id, COUNT(*) as total ')
+    return this.productRepository
+      .createQueryBuilder('product')
+      .select('product.category_id, COUNT(*) as total')
       .groupBy('product.category_id')
       .getRawMany();
   }

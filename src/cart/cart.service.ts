@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { InsertCartDTO } from './dtos/insert-cart.dto';
 import { CartEntity } from './entities/cart.entity';
-import { CartProductService } from '..//cart-product/cart-product.service';
+import { CartProductService } from '../cart-product/cart-product.service';
 import { UpdateCartDTO } from './dtos/update-cart.dto';
 
 const LINE_AFFECTED = 1;
