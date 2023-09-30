@@ -107,7 +107,7 @@ export class OrderService {
     });
 
     if(!orders || (orders).length === 0) {
-      throw new NotFoundException('Order not found')
+      throw new NotFoundException('Orders not found')
     }
     return orders;
 
