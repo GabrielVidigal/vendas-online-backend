@@ -11,6 +11,7 @@ import { ProductService } from '../product/product.service';
 import { Repository } from 'typeorm';
 import { CreateOrderDTO } from './dtos/create-order.dto';
 import { OrderEntity } from './entities/order.entity';
+
 @Injectable()
 export class OrderService {
   constructor(
@@ -77,10 +78,14 @@ export class OrderService {
     return order;
   }
 
-  async findOrdersByUserId(userId: number) {
+  async findOrdersByUserId(
+    userId?: number,
+    orderId?: number,
+  ): Promise<OrderEntity[]> {
     const orders = await this.orderRepository.find({
       where: {
         userId,
+        id: orderId,
       },
       relations: {
         address: true,
@@ -90,12 +95,14 @@ export class OrderService {
         payment: {
           paymentStatus: true,
         },
+        user: !!orderId,
       },
     });
 
     if (!orders || orders.length === 0) {
-      throw new NotFoundException('Order not found');
+      throw new NotFoundException('Orders not found');
     }
+
     return orders;
   }
 
@@ -103,13 +110,13 @@ export class OrderService {
     const orders = await this.orderRepository.find({
       relations: {
         user: true,
-      }
+      },
     });
 
-    if(!orders || (orders).length === 0) {
-      throw new NotFoundException('Orders not found')
+    if (!orders || orders.length === 0) {
+      throw new NotFoundException('Orders not found');
     }
-    return orders;
 
+    return orders;
   }
 }
