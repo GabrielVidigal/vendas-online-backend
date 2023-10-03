@@ -12,7 +12,7 @@ import { ReturnCepExternal } from './dto/return-cep-external.dto';
 import { ReturnCep } from './dto/return-cep.dto';
 import { Client } from 'nestjs-soap';
 import { ResponsePriceCorreios } from './dto/response-price-correios';
-import { CdFormatEmum } from './enuns/cd-format.enum';
+import { CdFormatEmum } from './enums/cd-format.enum';
 import { SizeProductDTO } from './dto/size-product.dto';
 
 @Injectable()
