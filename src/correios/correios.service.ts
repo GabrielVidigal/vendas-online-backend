@@ -12,10 +12,13 @@ import { ReturnCepExternal } from './dto/return-cep-external.dto';
 import { ReturnCep } from './dto/return-cep.dto';
 import { Client } from 'nestjs-soap';
 import { ResponsePriceCorreios } from './dto/response-price-correios';
+import { CdFormatEmum } from './enuns/cd-format.enum';
+import { SizeProductDTO } from './dto/size-product.dto';
 
 @Injectable()
 export class CorreiosService {
   URL_CORREIOS = process.env.URL_CEP_CORREIOS;
+  CEP_COMPANY = process.env.URL_CEP_CORREIOS;
   constructor(
     @Inject('SOAP_CORREIOS') private readonly soapClient: Client,
     private readonly httpService: HttpService,
@@ -42,23 +45,23 @@ export class CorreiosService {
     return new ReturnCep(returnCep, city?.id, city?.state?.id);
   }
 
-  async priceDelivery(): Promise<ResponsePriceCorreios> {
+  async priceDelivery(cdService: string, cep: string, sizeProductDTO: SizeProductDTO): Promise<ResponsePriceCorreios> {
     return new Promise((resolve) => {
       this.soapClient.CalcPrecoPrazo(
         {
-          nCdServico: '40010',
-          sCepOrigem: '22270010',
-          sCepDestino: '89010000',
-          nVlPeso: 2,
-          nCdFormato: 1,
-          nVlComprimento: 30,
-          nVlAltura: 30,
-          nVlLargura: 30,
-          nVlDiametro: 30,
+          nCdServico: cdService,
+          sCepOrigem: this.CEP_COMPANY,
+          sCepDestino: cep,
+          nCdFormato: CdFormatEmum.BOX,
+          nVlPeso: sizeProductDTO.weight,
+          nVlComprimento: sizeProductDTO.lenght,
+          nVlAltura: sizeProductDTO.height,
+          nVlLargura: sizeProductDTO.width,
+          nVlDiametro: sizeProductDTO.diameter,
           nCdEmpresa: '',
           sDsSenha: '',
           sCdMaoPropria: 'N',
-          nVlValorDeclarado: 0,
+          nVlValorDeclarado: sizeProductDTO.productValue < 25 ? 0 : sizeProductDTO,
           sCdAvisoRecebimento: 'N',
         },
         (_, res: ResponsePriceCorreios) => {

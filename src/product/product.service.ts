@@ -6,6 +6,9 @@ import { CreateProductDTO } from './dtos/create-product.dto';
 import { CategoryService } from '../category/category.service';
 import { UpdateProductDTO } from './dtos/update-product.dto';
 import { CountProduct } from './dtos/count-product.dto';
+import { SizeProductDTO } from 'src/correios/dto/size-product.dto';
+import { CorreiosService } from 'src/correios/correios.service';
+import { CdServiceEnum } from 'src/correios/enuns/cd-service.enum';
 
 @Injectable()
 export class ProductService {
@@ -15,6 +18,8 @@ export class ProductService {
 
     @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,
+
+    private readonly correiosService: CorreiosService,
   ) {}
 
   async findAll(productId?: number[], isFindRelations?: boolean): Promise<ProductEntity[]> {
@@ -87,5 +92,18 @@ export class ProductService {
       .select('product.category_id, COUNT(*) as total')
       .groupBy('product.category_id')
       .getRawMany();
+  }
+
+  async findPriceDelivery(cep: string, idProduct: number): Promise<any> {
+    const product = await this.findProductById(idProduct);
+
+    const sizeProduct = new SizeProductDTO(product);
+
+    const returnCorreios = await this.correiosService.priceDelivery(
+      CdServiceEnum.PAC,
+       cep,
+        sizeProduct
+        )
+      return returnCorreios
   }
 }
