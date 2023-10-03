@@ -54,7 +54,7 @@ export class CorreiosService {
           sCepDestino: cep,
           nCdFormato: CdFormatEmum.BOX,
           nVlPeso: sizeProductDTO.weight,
-          nVlComprimento: sizeProductDTO.lenght,
+          nVlComprimento: sizeProductDTO.length,
           nVlAltura: sizeProductDTO.height,
           nVlLargura: sizeProductDTO.width,
           nVlDiametro: sizeProductDTO.diameter,
