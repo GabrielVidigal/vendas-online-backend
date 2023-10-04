@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CorreiosService } from '../correios.service';
-import { CityService } from 'src/city/city.service';
+import { CityService } from '../../city/city.service';
 import { HttpService } from '@nestjs/axios';
 import { Client } from 'nestjs-soap';
 
