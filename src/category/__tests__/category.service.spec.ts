@@ -11,8 +11,7 @@ import { ReturnCategory } from '../dtos/return-category.dto';
 import { returnDeleteMock } from '../../__mocks__/return-delete.mock';
 import { productMock } from '../../product/__mocks__/product.mock';
 import { BadRequestException } from '@nestjs/common';
-import { updateCategoryMock } from '../__mocks__/update-category.mock copy';
-
+import { updateCategoryMock } from '../__mocks__/update-category.mock';
 
 describe('CategoryService', () => {
   let service: CategoryService;
@@ -120,8 +119,8 @@ describe('CategoryService', () => {
     expect(service.findCategoryById(categoryMock.id)).rejects.toThrowError();
   });
 
-  it('should return delete result in sucess', async () => {
-    const deleteResult = await service.deleteCategory(categoryMock.id)
+  it('should return delete result in success', async () => {
+    const deleteResult = await service.deleteCategory(categoryMock.id);
 
     expect(deleteResult).toEqual(returnDeleteMock);
   });
@@ -143,7 +142,7 @@ describe('CategoryService', () => {
   it('should return error if category with relations', async () => {
     jest.spyOn(categoryRepository, 'findOne').mockResolvedValue({
       ...categoryMock,
-      products: productMock,
+      products: [productMock],
     });
 
     expect(service.deleteCategory(categoryMock.id)).rejects.toThrowError(
@@ -152,20 +151,23 @@ describe('CategoryService', () => {
   });
 
   it('should return category in update category', async () => {
-    const spy = jest.spyOn(categoryRepository, 'findOne')
-    const category = await service.editCategory(categoryMock.id, updateCategoryMock)
+    const spy = jest.spyOn(categoryRepository, 'findOne');
+    const category = await service.editCategory(
+      categoryMock.id,
+      updateCategoryMock,
+    );
 
-    expect(category).toEqual(categoryMock)
-    expect(spy.mock.calls.length > 0).toEqual(true)
+    expect(category).toEqual(categoryMock);
+    expect(spy.mock.calls.length > 0).toEqual(true);
   });
 
   it('should send new category to save', async () => {
-    const spy = jest.spyOn(categoryRepository, 'save')
-    await service.editCategory(categoryMock.id, updateCategoryMock)
+    const spy = jest.spyOn(categoryRepository, 'save');
+    await service.editCategory(categoryMock.id, updateCategoryMock);
 
     expect(spy.mock.calls[0][0]).toEqual({
       ...categoryMock,
-      ...updateCategoryMock
-    })
+      ...updateCategoryMock,
+    });
   });
 });

@@ -16,7 +16,7 @@ import { ReturnCategory } from './dtos/return-category.dto';
 import { CreateCategory } from './dtos/create-category.dto';
 import { CategoryEntity } from './entities/category.entity';
 import { DeleteResult } from 'typeorm';
-import { UpdateCategory } from './dtos/update-category.dto copy';
+import { UpdateCategory } from './dtos/update-category.dto';
 
 @Roles(UserType.Admin, UserType.Root, UserType.User)
 @Controller('category')
@@ -48,5 +48,14 @@ export class CategoryController {
   @Put(':categoryId')
   async editCategory(@Param('categoryId') categoryId: number, @Body() updateCategory: UpdateCategory): Promise<CategoryEntity> {
     return this.categoryService.editCategory(categoryId, updateCategory)  
+  }
+
+  @Get(':categoryId')
+  async findCategoryById(
+    @Param('categoryId') categoryId: number,
+  ): Promise<ReturnCategory> {
+    return new ReturnCategory(
+      await this.categoryService.findCategoryById(categoryId, true),
+    );
   }
 }

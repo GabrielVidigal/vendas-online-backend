@@ -12,7 +12,7 @@ import { DeleteResult, Repository } from 'typeorm';
 import { CreateCategory } from './dtos/create-category.dto';
 import { ReturnCategory } from './dtos/return-category.dto';
 import { CategoryEntity } from './entities/category.entity';
-import { UpdateCategory } from './dtos/update-category.dto copy';
+import { UpdateCategory } from './dtos/update-category.dto';
 
 @Injectable()
 export class CategoryService {
