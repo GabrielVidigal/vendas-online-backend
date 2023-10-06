@@ -7,6 +7,7 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  Put,
 } from '@nestjs/common';
 import { Roles } from '../decorators/roles.decorator';
 import { UserType } from '../user/enum/user-type.enum';
@@ -15,6 +16,7 @@ import { ReturnCategory } from './dtos/return-category.dto';
 import { CreateCategory } from './dtos/create-category.dto';
 import { CategoryEntity } from './entities/category.entity';
 import { DeleteResult } from 'typeorm';
+import { UpdateCategory } from './dtos/update-category.dto copy';
 
 @Roles(UserType.Admin, UserType.Root, UserType.User)
 @Controller('category')
@@ -39,5 +41,12 @@ export class CategoryController {
   @Delete(':categoryId')
   async deleteCategory(@Param('categoryId') categoryId: number): Promise<DeleteResult> {
     return this.categoryService.deleteCategory(categoryId)
+  }
+
+  @Roles(UserType.Admin, UserType.Root)
+  @UsePipes(ValidationPipe)
+  @Put(':categoryId')
+  async editCategory(@Param('categoryId') categoryId: number, @Body() updateCategory: UpdateCategory): Promise<CategoryEntity> {
+    return this.categoryService.editCategory(categoryId, updateCategory)  
   }
 }
