@@ -8,6 +8,8 @@ import {
   ValidationPipe,
   Delete,
   Param,
+  HostParam,
+  Query
 } from '@nestjs/common';
 import { Roles } from '../decorators/roles.decorator';
 import { UserType } from '../user/enum/user-type.enum';
@@ -28,6 +30,14 @@ export class ProductController {
   @Get()
   async findAll(): Promise<ReturnProduct[]> {
     return (await this.productService.findAll([], true)).map(
+      (product) => new ReturnProduct(product),
+    );
+  }
+
+  @Roles(UserType.Admin, UserType.Root, UserType.User)
+  @Get('/page')
+  async findAllPage(@Query('search') search: string): Promise<ReturnProduct[]> {
+    return (await this.productService.findAllPage(search)).map(
       (product) => new ReturnProduct(product),
     );
   }
