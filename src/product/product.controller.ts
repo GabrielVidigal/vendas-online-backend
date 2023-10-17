@@ -20,7 +20,7 @@ import { CreateProductDTO } from './dtos/create-product.dto';
 import { DeleteResult } from 'typeorm';
 import { UpdateProductDTO } from './dtos/update-product.dto';
 import { ReturnPriceDeliveryDto } from './dtos/return-price-delivery.dto';
-import { Pagination } from 'src/dtos/pagination.dto';
+import { Pagination } from '../dtos/pagination.dto';
 
 @Roles(UserType.Admin, UserType.Root, UserType.User)
 @Controller('product')
