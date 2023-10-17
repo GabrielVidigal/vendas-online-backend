@@ -20,6 +20,7 @@ import { CreateProductDTO } from './dtos/create-product.dto';
 import { DeleteResult } from 'typeorm';
 import { UpdateProductDTO } from './dtos/update-product.dto';
 import { ReturnPriceDeliveryDto } from './dtos/return-price-delivery.dto';
+import { Pagination } from 'src/dtos/pagination.dto';
 
 @Roles(UserType.Admin, UserType.Root, UserType.User)
 @Controller('product')
@@ -36,10 +37,13 @@ export class ProductController {
 
   @Roles(UserType.Admin, UserType.Root, UserType.User)
   @Get('/page')
-  async findAllPage(@Query('search') search: string): Promise<ReturnProduct[]> {
-    return (await this.productService.findAllPage(search)).map(
-      (product) => new ReturnProduct(product),
-    );
+  async findAllPage(
+    @Query('search') search?: string,
+     @Query('size') size?: number,
+     @Query('page') page?: number,
+
+     ): Promise<Pagination<ReturnProduct[]>> {
+    return this.productService.findAllPage(search, size, page)
   }
 
   @Roles(UserType.Admin, UserType.Root, UserType.User)
